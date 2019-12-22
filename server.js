@@ -4,7 +4,7 @@ var url = require("url");
 var port = process.argv[2];
 
 if (!port) {
-  console.log("请指定相应的端口号？\nnode server.js 8888 这样不会吗？");
+  console.log("请指定相应的端口号,例如\nnode server.js 8888 ");
   process.exit(1);
 }
 
@@ -19,11 +19,11 @@ var server = http.createServer(function(request, response) {
   var query = parsedUrl.query;
   var method = request.method;
 
-  /******** 从这里开始看，上面不要看 ************/
+  console.log("有人发请求过来啦！路径（带查询参数）为：" + pathWithQuery);
 
-  console.log("有个傻子发请求过来啦！路径（带查询参数）为：" + pathWithQuery);
-
+  //设置响应状态码
   response.statusCode = 200;
+//   默认路径为 index.html
   const filePath = path === "/" ? "/index.html" : path;
   const suffixIndex = filePath.lastIndexOf(".");
   const suffix = filePath.substring(suffixIndex);
@@ -43,7 +43,6 @@ var server = http.createServer(function(request, response) {
   response.write(fsString);
   response.end();
 
-  /******** 代码结束，下面不要看 ************/
 });
 
 server.listen(port);
